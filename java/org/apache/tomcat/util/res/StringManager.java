@@ -123,9 +123,11 @@ public class StringManager {
         try {
             // Avoid NPE if bundle is null and treat it like an MRE
             if (bundle != null) {
-                str = bundle.getString(key);
+//                str = bundle.getString(key);
+                // 处理中文properties乱码问题
+                str = new String(bundle.getString(key).getBytes("ISO-8859-1"), "UTF-8");
             }
-        } catch (MissingResourceException mre) {
+        } catch (Exception mre) {
             //bad: shouldn't mask an exception the following way:
             //   str = "[cannot find message associated with key '" + key +
             //         "' due to " + mre + "]";

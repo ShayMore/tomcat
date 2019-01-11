@@ -55,8 +55,10 @@ public class Localizer {
     public static String getMessage(String errCode) {
         String errMsg = errCode;
         try {
-            errMsg = bundle.getString(errCode);
-        } catch (MissingResourceException e) {
+//            errMsg = bundle.getString(errCode);
+            // 处理中文properties乱码问题
+            errMsg = new String(bundle.getString(errCode).getBytes("ISO-8859-1"), "UTF-8");
+        } catch (Exception e) {
         }
         return errMsg;
     }
